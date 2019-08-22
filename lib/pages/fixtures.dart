@@ -1,37 +1,28 @@
 import 'package:flutter/material.dart';
-import './components/league_card.dart';
 import './components/custom_app_bar.dart';
 import '../api/data_fetcher.dart';
+import './components/fixture_card.dart';
 
-class Home extends StatefulWidget {
+class Fixtures extends StatefulWidget{
   @override
   State<StatefulWidget> createState() {
-    return _HomeState();
+    return _FixturesState();
   }
 }
 
-class _HomeState extends State<Home> {
-  List<dynamic> leagues = [];
-  List<dynamic> standings = [];
+class _FixturesState extends State<Fixtures> {
+  List<dynamic> fixtures = [];
 
   @override
   void initState() {
     super.initState();
-    _setLeagues();
-    _setStandings();
+    _setFixtures();
   }
 
-  _setLeagues() async {
-    List<dynamic> fetchedLeagues = await DataFetcher.fetchLeagues();
+  _setFixtures() async {
+    List<dynamic> fetchedScorers = await DataFetcher.fetchFixtures();
     setState(() {
-      leagues.addAll(fetchedLeagues);
-    });
-  }
-
-  _setStandings() async {
-    List<dynamic> fetchedStandings = await DataFetcher.fetchStandings();
-    setState(() {
-      standings.addAll(fetchedStandings);
+      fixtures.addAll(fetchedScorers);
     });
   }
 
@@ -43,14 +34,14 @@ class _HomeState extends State<Home> {
           // MAIN STACK IS THE WHOLE SCREEN COLOR
           Container(color: Colors.grey[300]),
           // APPBAR STACKED ON TOP
-          CustomAppBar('Leagues', Colors.redAccent),
-          // LEAGUE CARD BUILT BY THE API DATA
+          CustomAppBar('Fixtures', Color.fromRGBO(133, 96, 249, 1.0)),
+          // Fixtures CArd
           Padding(
             padding: const EdgeInsets.only(top: 60.0),
             child: ListView.builder(
-              itemCount: leagues.length,
+              itemCount: fixtures.length,
               itemBuilder: (BuildContext context, int index) {
-                return LeagueCard(leagues[index], standings);
+                return FixtureCard(fixtures[index]);
               },
             ),
           )

@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 class CustomAppBar extends StatelessWidget {
   final String title;
   final Color color;
+  final bool showButtons;
 
-  CustomAppBar(this.title, this.color);
+  CustomAppBar(this.title, this.color, {this.showButtons = false});
 
   @override
   Widget build(BuildContext context) {
@@ -15,6 +16,7 @@ class CustomAppBar extends StatelessWidget {
       height: 160.0,
       child: AppBar(
         backgroundColor: color,
+        centerTitle: true,
         title: Padding(
           padding: const EdgeInsets.only(top: 15.0),
           child: Text(

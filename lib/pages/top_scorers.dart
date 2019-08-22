@@ -1,37 +1,28 @@
 import 'package:flutter/material.dart';
-import './components/league_card.dart';
 import './components/custom_app_bar.dart';
 import '../api/data_fetcher.dart';
+import './components/scorer_card.dart';
 
-class Home extends StatefulWidget {
+class TopScorers extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return _HomeState();
+    return _TopScorersState();
   }
 }
 
-class _HomeState extends State<Home> {
-  List<dynamic> leagues = [];
-  List<dynamic> standings = [];
+class _TopScorersState extends State<TopScorers> {
+  List<dynamic> topScorers = [];
 
   @override
   void initState() {
     super.initState();
-    _setLeagues();
-    _setStandings();
+    _setTopScorers();
   }
 
-  _setLeagues() async {
-    List<dynamic> fetchedLeagues = await DataFetcher.fetchLeagues();
+  _setTopScorers() async {
+    List<dynamic> fetchedScorers = await DataFetcher.fetchTopScorers();
     setState(() {
-      leagues.addAll(fetchedLeagues);
-    });
-  }
-
-  _setStandings() async {
-    List<dynamic> fetchedStandings = await DataFetcher.fetchStandings();
-    setState(() {
-      standings.addAll(fetchedStandings);
+      topScorers.addAll(fetchedScorers);
     });
   }
 
@@ -43,14 +34,14 @@ class _HomeState extends State<Home> {
           // MAIN STACK IS THE WHOLE SCREEN COLOR
           Container(color: Colors.grey[300]),
           // APPBAR STACKED ON TOP
-          CustomAppBar('Leagues', Colors.redAccent),
-          // LEAGUE CARD BUILT BY THE API DATA
+          CustomAppBar('Top Scorers', Color.fromRGBO(133, 96, 249, 1.0)),
+          // TOPSCORER CARD
           Padding(
             padding: const EdgeInsets.only(top: 60.0),
             child: ListView.builder(
-              itemCount: leagues.length,
+              itemCount: topScorers.length,
               itemBuilder: (BuildContext context, int index) {
-                return LeagueCard(leagues[index], standings);
+                return ScorerCard(topScorers[index]);
               },
             ),
           )

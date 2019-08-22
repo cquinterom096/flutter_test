@@ -14,7 +14,7 @@ class LeagueCard extends StatelessWidget {
       padding: const EdgeInsets.only(top: 20.0),
       child: GestureDetector(
         onTap: () {
-          Navigator.pushNamed(context, '/standings', arguments: [league.id, standings]);
+          Navigator.pushNamed(context, '/standings', arguments: [league.id, league.leagueName, standings]);
         },
         child: Center(
           child: Container(
